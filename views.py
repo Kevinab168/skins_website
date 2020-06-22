@@ -1,16 +1,21 @@
 from django.http import HttpResponse
+from counter.models import Counter
+from django.shortcuts import render
 
-counter_track = 0
 
-
-def hello(request): 
-    return HttpResponse("Hello World")
+def hello(request):
+    return render(request, 'hello.html')
 
 
 def bye(request):
-    return HttpResponse("bye")
+    return render(request, 'bye.html')
 
-def counter(request): 
-    global counter_track
-    counter_track += 1
-    return HttpResponse(f'<div id="counter">{counter_track}</div>')
+
+def counter(request):
+    counter, created = Counter.objects.get_or_create(id=1)
+    counter.value += 1
+    counter.save()
+    context = { 
+        'counter': counter
+    }
+    return render(request, 'counter.html', context)
