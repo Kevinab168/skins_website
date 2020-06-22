@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from counter.models import Counter
 from django.shortcuts import render
 
@@ -15,7 +14,7 @@ def counter(request):
     counter, created = Counter.objects.get_or_create(id=1)
     counter.value += 1
     counter.save()
-    context = { 
+    context = {
         'counter': counter
     }
     return render(request, 'counter.html', context)
