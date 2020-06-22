@@ -1,5 +1,7 @@
 import pytest
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
 
 
 @pytest.fixture
@@ -9,7 +11,11 @@ def hello():
 
 @pytest.yield_fixture(scope='session')
 def driver():
-    with webdriver.Chrome() as driver:
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    with webdriver.Chrome(chrome_options=chrome_options) as driver:
         yield driver
 
 
