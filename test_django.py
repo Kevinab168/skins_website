@@ -9,7 +9,7 @@ def hello():
 
 @pytest.yield_fixture(scope='session')
 def driver():
-    with webdriver.Remote(command_executor="http://127.0.0.1:9515") as driver:
+    with webdriver.Chrome() as driver:
         yield driver
 
 
